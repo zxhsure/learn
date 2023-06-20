@@ -13,7 +13,7 @@ fn initTree(treeLevel: u32, nodeWidth: u32) -> Item {
     };
 
     let mut root = tempNode.clone();
-    root.name = String::from("node_1_1");
+    root.name = String::from("node_0_0");
 
     if treeLevel < 2 {
         return root;
@@ -23,38 +23,37 @@ fn initTree(treeLevel: u32, nodeWidth: u32) -> Item {
 
     for m1 in 0..nodeWidth {
         let mut curItem = tempNode.clone();
-        curItem.name = format!("node_{}_{}", 2, m1);
+        curItem.name = format!("node_{}_{}", 1, m1);
         root.children.push(curItem);
     }
 
-    // for m2 in 0..nodeWidth {
-    //     let s: &mut [Item] =
-    //         &mut root.children[m2.try_into().unwrap()..(m2 + 1).try_into().unwrap()];
-    // }
+    let mut vs: Vec<&mut [Item]> = root.children.chunks_mut(1).collect();
+    for m2 in vs.iter_mut() {
+        nodeStack.push(*m2);
+    }
 
-    let (mut a, _) = root.children.split_at_mut(1);
+    for i in 2..treeLevel {
+        let curTotal: u32 = nodeWidth.pow(i - 1);
 
-    nodeStack.push(a);
+        for j in 0..curTotal {
+            let shiftItem = nodeStack.remove(0);
 
-    println!("nodeStack: {:#?}", nodeStack);
+            for k1 in 0..nodeWidth {
+                let mut curItem = tempNode.clone();
+                curItem.name = format!("node_{}_{}", i, nodeWidth * j + k1);
+                shiftItem[0].children.push(curItem);
+            }
 
-    // for i in 3..treeLevel + 1 {
-    //     let curTotal: u32 = nodeWidth.pow(i - 1);
-
-    //     for j in 0..curTotal {
-    //         let shiftItem = nodeStack.remove(0);
-
-    //         for k1 in 0..nodeWidth {
-    //             let mut curItem = tempNode.clone();
-    //             curItem.name = format!("node_{}_{}", i, nodeWidth * j + k1);
-    //             shiftItem[0].children.push(curItem);
-    //         }
-
-    //         for k2 in shiftItem[0].children.split_mut(|num| true) {
-    //             nodeStack.push(k2);
-    //         }
-    //     }
-    // }
+            let mut ss: Vec<&mut [Item]> = shiftItem[0].children.chunks_mut(1).collect();
+            for _ in 0..nodeWidth {
+                let curSs = ss.remove(0);
+                nodeStack.push(curSs);
+            }
+            // for s in ss.iter_mut() {
+            //     nodeStack.push(*s);
+            // }
+        }
+    }
 
     root
 }
@@ -105,7 +104,7 @@ fn test() {
 }
 
 fn main() {
-    let root = initTree(5, 5);
+    let root = initTree(5, 2);
     println!("{:#?}", root);
     // test();
 }
