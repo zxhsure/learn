@@ -1,1 +1,1 @@
-/home/ubuntu/fwork/learn/hellocargo/target/debug/hellocargo: /home/ubuntu/fwork/learn/hellocargo/src/main.rs
+/mnt/c/fwork/learn/hellocargo/target/debug/hellocargo: /mnt/c/fwork/learn/hellocargo/src/main.rs
