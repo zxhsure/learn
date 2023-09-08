@@ -200,9 +200,30 @@ fn unsafeTreeFun(treeLevel: u32, nodeWidth: u32) -> Item {
     root
 }
 
+fn h() -> Vec<i32> {
+    let mut ff = vec![];
+    let mut a = || {
+        for i in 0..5 {
+            ff.push(i)
+        }
+    };
+    a();
+    ff
+}
+
 fn main() {
     // let root = unsafeTreeFun(5, 2);
     // println!("{:#?}", root);
     // test();
     // slicefun(5);
+
+    // let a = 1;
+    // let c1 = || a + 1;
+    // fn c2() {
+    //     a + 1
+    // }
+    // println!("{:#?}", c1());
+    // println!("{:#?}", c2());
+
+    println!("{:#?}", h());
 }
