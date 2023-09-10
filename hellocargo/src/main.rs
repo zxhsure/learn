@@ -217,13 +217,13 @@ fn main() {
     // test();
     // slicefun(5);
 
-    // let a = 1;
-    // let c1 = || a + 1;
+    let a: i32 = 1;
+    let c1 = |b| a + b;
     // fn c2() {
     //     a + 1
     // }
-    // println!("{:#?}", c1());
+    println!("{:#?}", c1(2));
     // println!("{:#?}", c2());
 
-    println!("{:#?}", h());
+    // println!("{:#?}", h());
 }
